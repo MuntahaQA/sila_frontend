@@ -1,16 +1,74 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🖥️ SILA – Frontend (Client Interface & User Experience)
 
-Currently, two official plugins are available:
+The **SILA Frontend** delivers a responsive, bilingual web interface for the unified charity data ecosystem.  
+It enables seamless interaction between **Charities**, **Beneficiaries**, and **Ministry partners** through intuitive dashboards, visual analytics, and real-time data views powered by the SILA backend API. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📘 Project Description
 
-## React Compiler
+The **SILA Frontend** provides the interactive layer of the unified charity data ecosystem, connecting users with verified information managed by the backend.  
+It is designed to offer a **clean, accessible, and bilingual (AR/EN)** interface that enables different user roles to interact with SILA efficiently:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Ministry (Super User):** accesses a centralized dashboard (via Django Admin backend) to monitor charities, programs, and national data.  
+- **Charity Admin:** manages beneficiaries, creates and tracks charity events, and views participation statistics.  
+- **Beneficiary:** logs in to view or edit their profile, register for charity events, and apply for available support programs.
 
-## Expanding the ESLint configuration
+The frontend integrates tightly with the SILA backend API to display live data, handle secure authentication, and deliver responsive dashboards optimized for both desktop and mobile users.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧩 Tech Stack
+
+- **Development Environment:** Visual Studio Code  
+- **Programming Language:** JavaScript (ES6+)  
+- **Framework / Build Tool:** React 18 + Vite  
+- **Styling:** Tailwind CSS  
+- **State Management:** React Query / Context API  
+- **Routing:** React Router  
+- **Authentication:** JWT (integrated with SILA Backend API)  
+- **Data Source:** SILA Backend (Django REST API with PostgreSQL database)  
+- **Deployment:** Vercel / Netlify / Render  
+- **Containerization:** Docker
+
+
+## 🔗 Related Repositories & Links
+
+| Repository Name | Link |
+|------|------|
+| **Frontend Repository** | [SILA Frontend Repo](https://github.com/MuntahaQA/sila_frontend) |
+| **Backend Repository** | [SILA Backend Repo](https://github.com/MuntahaQA/sila_backend) |
+| **Live Backend Site (API)** | 
+
+
+
+## Clone repository
+git clone https://github.com/MuntahaQA/sila_frontend
+cd sila_frontend
+
+## Install dependencies
+npm install
+
+## Run development server
+npm run dev
+
+## 🧊 IceBox Features
+The following features are planned for future frontend development to enhance user experience, accessibility, and impact across the SILA ecosystem:
+
+- **📱 Cross-Platform Mobile Application (iOS / Android):**  
+  Build a responsive mobile version of SILA using React Native or Flutter to provide real-time access to charity services, event registration, and notifications on the go.
+
+- **🗺️ Geospatial Information System (GIS) Integration:**  
+  Incorporate interactive map components to display nearby charities, active events, and regional program coverage for easier discovery and navigation.
+
+- **🤖 AI-Enhanced User Interface:**  
+  Integrate frontend components that visualize AI-based beneficiary prioritization results from the backend — enabling administrators to see urgent cases clearly through dashboards and charts.
+
+- **🏛️ Program-Owner Ministry Portal (Frontend Interface):**
+  Provide a dedicated portal for *program-owning ministries* (e.g., Ministry of Housing → Sakani, Ministry of Education → Takaful) to sign in and manage **their own programs only**. 
+  The portal lets them:
+  - View program dashboards (applications, eligibility funnel, regional coverage).
+  - See which beneficiaries registered/applied to *their* programs.
+
+- **📊 Advanced Analytics Dashboard:**  
+  Create interactive data visualizations (charts, KPIs, and performance metrics) using libraries like Recharts or Chart.js for administrators and policymakers.
+
+- **💡 Personalized Recommendations:**  
+  Implement UI elements for donor and beneficiary suggestions powered by backend ML models — enhancing engagement and relevance.
