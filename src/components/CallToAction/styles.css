@@ -1,0 +1,19 @@
+.cta {
+    background: linear-gradient(90deg, rgba(79, 58, 167, .35), rgba(11, 12, 34, .2));
+    text-align: center
+}
+
+.cta__title {
+    margin-bottom: 8px
+}
+
+.cta__text {
+    margin-bottom: 12px
+}
+
+.cta__buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap
+}

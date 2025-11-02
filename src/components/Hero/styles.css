@@ -1,0 +1,62 @@
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  color: var(--color-text);
+  overflow: hidden;
+  border-top: none; /* avoid line at top from .section */
+ 
+
+  /* Gradient using your variables */
+  background:
+    radial-gradient(80% 50% at 50% 0%,
+      color-mix(in oklab, var(--color-accent-600) 18%, transparent),
+      transparent 60%),
+    linear-gradient(
+      to bottom,
+      var(--color-bg-950) 0%,
+      var(--color-bg-900) 28%,
+      var(--color-bg-800) 56%,
+      var(--color-accent-600) 78%,
+      var(--color-accent-300) 100%
+    );
+
+  background-size: 100% 100%, 120% 120%;
+  animation: heroGradientMove 14s ease-in-out infinite alternate;
+}
+
+@keyframes heroGradientMove {
+  0%   { background-position: 50% 0%, 0% 0%; }
+  100% { background-position: 50% 0%, 100% 100%; }
+}
+
+/* Optional overlay for contrast */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.30),
+    rgba(0,0,0,0.15) 40%,
+    rgba(0,0,0,0.20)
+  );
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding: 72px 20px; /* keep your section rhythm */
+}
+
+.hero__title { font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; margin: 12px 0 12px; }
+.hero__subtitle { font-size: clamp(1rem, 1.3vw, 1.2rem); margin-bottom: 24px; }
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero { animation: none; background-size: cover; }
+}

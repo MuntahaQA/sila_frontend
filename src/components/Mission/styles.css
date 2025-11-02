@@ -1,0 +1,18 @@
+.mission__title {
+    margin-bottom: 18px
+}
+
+.mission__grid {
+    grid-template-columns: repeat(1, 1fr)
+}
+
+.mission__cardTitle {
+    font-weight: 800;
+    margin-bottom: 8px
+}
+
+@media (min-width: 880px) {
+    .mission__grid {
+        grid-template-columns: repeat(3, 1fr)
+    }
+}

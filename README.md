@@ -39,15 +39,56 @@ The frontend integrates tightly with the SILA backend API to display live data, 
 
 
 
-## Clone repository
-git clone https://github.com/MuntahaQA/sila_frontend
-cd sila_frontend
+## 🚀 Installation Instructions
 
-## Install dependencies
-npm install
+### Option 1: Using Docker (Recommended)
 
-## Run development server
-npm run dev
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/MuntahaQA/sila_frontend
+   cd sila_frontend
+   ```
+
+2. **Start with Docker Compose**
+   ```bash
+   docker-compose up --build
+   ```
+
+   The application will be available at `http://localhost:5173`
+
+### Option 2: Manual Installation
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/MuntahaQA/sila_frontend
+   cd sila_frontend
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up Environment Variables**
+   Create a `.env` file in the frontend directory:
+   ```
+   VITE_API_URL=http://localhost:8000
+   ```
+
+4. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
+
+   The application will be available at `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory.
 
 ## 🧊 IceBox Features
 The following features are planned for future frontend development to enhance user experience, accessibility, and impact across the SILA ecosystem:
