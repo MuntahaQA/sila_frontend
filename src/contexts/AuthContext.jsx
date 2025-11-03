@@ -18,9 +18,15 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = useCallback(async () => {
     try {
-      // You can add an endpoint to get current user info
-      // For now, we'll just check if token is valid
-      setUser({ authenticated: true });
+      if (token) {
+        // Fetch current user info from API
+        const userData = await sendRequest('/api/users/token/refresh/', 'GET', null, true);
+        if (userData && userData.user) {
+          setUser({ ...userData.user, authenticated: true });
+        } else {
+          setUser({ authenticated: true });
+        }
+      }
       setLoading(false);
     } catch (error) {
       console.error('Error fetching user:', error);
@@ -30,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem('refreshToken');
       setLoading(false);
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (token) {
@@ -44,10 +50,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token, fetchUser]);
 
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     try {
-      const response = await sendRequest('/api/token/', 'POST', {
-        username,
+      const response = await sendRequest('/api/users/login/', 'POST', {
+        email,
         password,
       }, false); // Don't require auth for login
 
@@ -55,14 +61,19 @@ export const AuthProvider = ({ children }) => {
         setToken(response.access);
         localStorage.setItem('token', response.access);
         localStorage.setItem('refreshToken', response.refresh);
-        setUser({ username, authenticated: true });
-        return { success: true };
+        const userData = { ...response.user, authenticated: true };
+        setUser(userData);
+        return { 
+          success: true,
+          user: userData,
+          isMinistryUser: userData.is_superuser || false
+        };
       }
     } catch (error) {
       console.error('Login error:', error);
       return {
         success: false,
-        error: error.message || 'Invalid credentials',
+        error: error.error || error.message || 'Invalid credentials',
       };
     }
   };
@@ -74,13 +85,21 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('refreshToken');
   };
 
+  const refreshUser = useCallback(async () => {
+    if (token) {
+      await fetchUser();
+    }
+  }, [token, fetchUser]);
+
   const value = {
     user,
     token,
     login,
     logout,
     loading,
+    refreshUser,
     isAuthenticated: !!token && !!user,
+    isMinistryUser: user?.is_superuser || false,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

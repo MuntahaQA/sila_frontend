@@ -60,13 +60,13 @@ The frontend integrates tightly with the SILA backend API to display live data, 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/MuntahaQA/sila_frontend
-   cd sila_frontend
+git clone https://github.com/MuntahaQA/sila_frontend
+cd sila_frontend
    ```
 
 2. **Install Dependencies**
    ```bash
-   npm install
+npm install
    ```
 
 3. **Set up Environment Variables**
@@ -77,7 +77,7 @@ The frontend integrates tightly with the SILA backend API to display live data, 
 
 4. **Run Development Server**
    ```bash
-   npm run dev
+npm run dev
    ```
 
    The application will be available at `http://localhost:5173`

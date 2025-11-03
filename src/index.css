@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --color-bg-950: #0b0c22;
   /* deep navy */
@@ -40,19 +44,31 @@ a {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px
+  padding: 0 40px;
 }
 
 .section {
-  padding: 72px 0;
-  border-top: 1px solid var(--color-border)
+  padding: 100px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  .section {
+    padding: 60px 0;
+  }
 }
 
 .title {
-  font-weight: 800;
-  letter-spacing: .3px
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.2;
 }
 
 .text-dim {

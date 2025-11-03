@@ -26,7 +26,13 @@ export const sendRequest = async (endpoint, method = 'GET', body = null, require
       const errorData = await response.json().catch(() => ({
         error: `HTTP ${response.status}: ${response.statusText}`,
       }));
-      throw new Error(errorData.error || errorData.detail || 'Request failed');
+      
+      // Return full error object for validation errors
+      if (response.status === 400 && errorData) {
+        throw errorData;
+      }
+      
+      throw new Error(errorData.error || errorData.detail || errorData.message || 'Request failed');
     }
 
     const data = await response.json().catch(() => null);

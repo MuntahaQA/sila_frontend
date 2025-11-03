@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import logo from "../../assets/images/Sila-logo.png";
 import "./styles.css";
 
@@ -38,20 +39,33 @@ function MenuDropdown({ label, items }) {
   );
 }
 
-const ABOUT_ITEMS = [
-  { label: "Overview", href: "/about/overview" },
-  { label: "How It Works", href: "/about/how-it-works" },
-  { label: "Our Impact", href: "/about/impact" },
-  { label: "Partners", href: "/about/partners" },
-  { label: "FAQs", href: "/about/faqs" },
-];
-
 const REGISTER_ITEMS = [
-  { label: "Charity", href: "/register/charity" },
-  { label: "Ministry", href: "/register/ministry" },
+  { label: "Charity", href: "/register?type=charity" },
+  { label: "Ministry", href: "/register?type=ministry" },
 ];
 
 export default function Navbar() {
+  const { isAuthenticated, user, logout, isMinistryUser } = useAuth();
+  const navigate = useNavigate();
+  
+  // Get ministry name from user data
+  const getMinistryName = () => {
+    // For ministry users, first_name contains the ministry name
+    if (isMinistryUser && user?.first_name) {
+      return user.first_name;
+    }
+    if (user?.first_name || user?.last_name) {
+      return `${user.first_name || ''} ${user.last_name || ''}`.trim() || user.email || 'Ministry';
+    }
+    return user?.email?.split('@')[0] || 'Ministry';
+  };
+
+  // Handle logout and redirect to home
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <nav className="navbar">
       <div className="nav-inner">
@@ -60,18 +74,45 @@ export default function Navbar() {
           <img src={logo} alt="SILA Logo" />
         </Link>
 
-        <ul className="nav-center">
-          <li><Link to="/" className="nav-link">Home</Link></li>
-          <li><MenuDropdown label="About" items={ABOUT_ITEMS} /></li>
-          <li><Link to="/programs" className="nav-link">Programs</Link></li>
-          <li><Link to="/events" className="nav-link">Events</Link></li>
-          <li><MenuDropdown label="Register" items={REGISTER_ITEMS} /></li>
-        </ul>
+        {isAuthenticated && isMinistryUser ? (
+          // Ministry User Navbar
+          <>
+            <ul className="nav-center">
+              <li><Link to="/programs" className="nav-link">Programs</Link></li>
+              <li><Link to="/dashboard" className="nav-link">Dashboard</Link></li>
+              <li><Link to="/profile" className="nav-link">Profile</Link></li>
+            </ul>
 
-        <div className="nav-right">
-          <button className="lang-btn">EN / AR</button>
-          <Link to="/login" className="btn-primary">Login</Link>
-        </div>
+            <div className="nav-right">
+              <span className="ministry-name">{getMinistryName()}</span>
+              <button className="lang-btn">EN / AR</button>
+              <button onClick={handleLogout} className="btn-primary">Logout</button>
+            </div>
+          </>
+        ) : (
+          // Public/Regular User Navbar
+          <>
+            <ul className="nav-center">
+              <li><Link to="/" className="nav-link">Home</Link></li>
+              <li><Link to="/about" className="nav-link">About</Link></li>
+              <li><Link to="/programs" className="nav-link">Programs</Link></li>
+              <li><Link to="/events" className="nav-link">Events</Link></li>
+              <li><MenuDropdown label="Register" items={REGISTER_ITEMS} /></li>
+            </ul>
+
+            <div className="nav-right">
+              <button className="lang-btn">EN / AR</button>
+              {isAuthenticated ? (
+                <>
+                  <Link to="/profile" className="nav-link">Profile</Link>
+                  <button onClick={handleLogout} className="btn-primary">Logout</button>
+                </>
+              ) : (
+                <Link to="/login" className="btn-primary">Login</Link>
+              )}
+            </div>
+          </>
+        )}
 
       </div>
     </nav>
